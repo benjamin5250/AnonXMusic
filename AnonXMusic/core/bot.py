@@ -26,29 +26,38 @@ class Anony(Client):
         self.username = self.me.username
         self.mention = self.me.mention
 
-        try:
-            await self.send_message(
-                chat_id=config.LOGGER_ID,
-                text=f"<u><b>» {self.mention} ʙᴏᴛ sᴛᴀʀᴛᴇᴅ :</b><u>\n\nɪᴅ : <code>{self.id}</code>\nɴᴀᴍᴇ : {self.name}\nᴜsᴇʀɴᴀᴍᴇ : @{self.username}",
-            )
-        except (errors.ChannelInvalid, errors.PeerIdInvalid):
-            LOGGER(__name__).error(
-                "Bot has failed to access the log group/channel. Make sure that you have added your bot to your log group/channel."
-            )
-            exit()
-        except Exception as ex:
-            LOGGER(__name__).error(
-                f"Bot has failed to access the log group/channel.\n  Reason : {type(ex).__name__}."
-            )
-            exit()
+          try:
+        await app.send_message(
+            SUNAME,
+            f"ᴘᴜʀᴘʟᴇ ᴘʟᴀɴᴇᴛ ᴍᴜꜱɪᴄ ʙᴏᴛ\n\n𖢵 ɪᴅ : `{BOT_ID}`\n𖢵 ɴᴀᴍᴇ : {BOT_NAME}\n𖢵 ᴜsᴇʀɴᴀᴍᴇ : @{BOT_USERNAME}",
+        )
+    except:
+        LOGGER.error(
+            f"{BOT_NAME} failed to send message at @{SUNAME}, please go & check."
+        )
 
-        a = await self.get_chat_member(config.LOGGER_ID, self.id)
-        if a.status != ChatMemberStatus.ADMINISTRATOR:
-            LOGGER(__name__).error(
-                "Please promote your bot as an admin in your log group/channel."
-            )
-            exit()
-        LOGGER(__name__).info(f"Music Bot Started as {self.name}")
+    try:
+        await app2.send_message(
+            SUNAME,
+            f"ᴘᴜʀᴘʟᴇ ᴘʟᴀɴᴇᴛ ᴀꜱꜱɪꜱᴀᴛᴀɴᴛ\n\n𖢵 ɪᴅ : `{ASS_ID}`\n𖢵 ɴᴀᴍᴇ : {ASS_NAME}\n𖢵 ᴜsᴇʀɴᴀᴍᴇ : @{ASS_USERNAME}",
+        )
+    except:
+        LOGGER.error(
+            f"{ASS_NAME} failed to send message at @{SUNAME}, please go & check."
+        )
 
-    async def stop(self):
-        await super().stop()
+    await app2.send_message(BOT_USERNAME, "/start")
+
+    LOGGER.info(f"[•] Bot Started As {BOT_NAME}.")
+    LOGGER.info(f"[•] Assistant Started As {ASS_NAME}.")
+
+    LOGGER.info(
+        "[•] \x53\x74\x61\x72\x74\x69\x6e\x67\x20\x50\x79\x54\x67\x43\x61\x6c\x6c\x73\x20\x43\x6c\x69\x65\x6e\x74\x2e\x2e\x2e"
+    )
+    await pytgcalls.start()
+    await idle()
+
+
+if __name__ == "__main__":
+    asyncio.get_event_loop().run_until_complete(fallen_startup())
+    LOGGER.error("Fallen Music Bot Stopped.")
